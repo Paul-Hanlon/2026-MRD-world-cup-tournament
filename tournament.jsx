@@ -563,7 +563,8 @@ export default function TournamentTracker() {
   return (
     <div style={{
       fontFamily: "'DM Sans', 'Segoe UI', sans-serif",
-      maxWidth: 1100, margin: "0 auto", background: "#f8fafc", minHeight: "100vh"
+      maxWidth: 1100, margin: "0 auto", background: "#f8fafc", minHeight: "100vh",
+      overflowX: "hidden"
     }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
@@ -637,7 +638,7 @@ export default function TournamentTracker() {
         {/* GROUPS TAB */}
         {tab === "groups" && (
           <div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340, 1fr))", gap: 16, marginBottom: 20 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(340px, 100%), 1fr))", gap: 16, marginBottom: 20 }}>
               {[1, 2, 3, 4, 5, 6].map(gId => (
                 <GroupTable key={gId} groupId={gId} scores={scores} />
               ))}
@@ -690,7 +691,7 @@ export default function TournamentTracker() {
                     </div>
                   )}
                   {dayBracketGames.length > 0 && (
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                       {dayBracketGames.map(b => (
                         <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
                       ))}
@@ -745,7 +746,7 @@ export default function TournamentTracker() {
               <h4 style={{ fontSize: 13, color: "#3b82f6", fontWeight: 700, marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
                 Quarter-Finals — Friday
               </h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("QF")).map(b => (
                   <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
                 ))}
@@ -756,7 +757,7 @@ export default function TournamentTracker() {
               <h4 style={{ fontSize: 13, color: "#8b5cf6", fontWeight: 700, marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
                 Top Eight Elimination — Saturday
               </h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("TE")).map(b => (
                   <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
                 ))}
@@ -767,7 +768,7 @@ export default function TournamentTracker() {
               <h4 style={{ fontSize: 13, color: "#8b5cf6", fontWeight: 700, marginBottom: 8, fontFamily: "'JetBrains Mono', monospace" }}>
                 Semi-Finals — Saturday
               </h4>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("SF")).map(b => (
                   <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
                 ))}
@@ -789,7 +790,7 @@ export default function TournamentTracker() {
                 <span style={{ fontSize: 13, color: "#92400e", fontWeight: 600 }}>Group stage incomplete ({groupGamesPlayed}/36 games). Teams will be seeded once all group results are entered.</span>
               </div>
             )}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 12 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
               {BRACKET_TEMPLATE.filter(b => b.label.startsWith("R-")).map(b => (
                 <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
               ))}
@@ -810,7 +811,7 @@ export default function TournamentTracker() {
                 <span style={{ fontSize: 13, color: "#92400e", fontWeight: 600 }}>Group stage incomplete ({groupGamesPlayed}/36 games). Teams will be seeded once all group results are entered.</span>
               </div>
             )}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 16 }}>
               {BRACKET_TEMPLATE.filter(b => ["7th/8th", "5th/6th", "3rd/4th", "FINAL"].includes(b.label)).map(b => (
                 <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
               ))}
