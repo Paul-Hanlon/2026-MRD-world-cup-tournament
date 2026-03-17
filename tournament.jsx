@@ -227,7 +227,7 @@ function resolveBracketGame(gameId, scores, side) {
 }
 
 // Score Input Component
-function ScoreInput({ value, onChange, teamCode }) {
+function ScoreInput({ value, onChange, onBlur }) {
   return (
     <input
       type="number"
@@ -235,6 +235,7 @@ function ScoreInput({ value, onChange, teamCode }) {
       max="999"
       value={value}
       onChange={e => onChange(e.target.value)}
+      onBlur={onBlur}
       style={{
         width: 52, height: 36, textAlign: "center", fontSize: 16, fontWeight: 700,
         border: "2px solid #334155", borderRadius: 6, background: value !== "" ? "#f0fdf4" : "#f8fafc",
@@ -262,7 +263,7 @@ function TeamBadge({ code, size = "md" }) {
 }
 
 // Game Row for group stage
-function GameRow({ game, score, onScoreChange }) {
+function GameRow({ game, score, onScoreChange, onScoreBlur }) {
   const homeWin = score.home !== "" && score.away !== "" && parseInt(score.home) > parseInt(score.away);
   const awayWin = score.home !== "" && score.away !== "" && parseInt(score.away) > parseInt(score.home);
   const played = score.home !== "" && score.away !== "";
@@ -281,9 +282,9 @@ function GameRow({ game, score, onScoreChange }) {
         </span>
         <TeamBadge code={game.home} size="sm" />
       </div>
-      <ScoreInput value={score.home} onChange={v => onScoreChange(game.id, "home", v)} />
+      <ScoreInput value={score.home} onChange={v => onScoreChange(game.id, "home", v)} onBlur={() => onScoreBlur(game.id)} />
       <span style={{ textAlign: "center", color: "#94a3b8", fontWeight: 700, fontSize: 11 }}>vs</span>
-      <ScoreInput value={score.away} onChange={v => onScoreChange(game.id, "away", v)} />
+      <ScoreInput value={score.away} onChange={v => onScoreChange(game.id, "away", v)} onBlur={() => onScoreBlur(game.id)} />
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         <TeamBadge code={game.away} size="sm" />
         <span style={{ fontSize: 12, color: awayWin ? "#16a34a" : "#475569", fontWeight: awayWin ? 700 : 400 }}>
@@ -357,7 +358,7 @@ const thStyle = { padding: "6px 4px", textAlign: "center", fontSize: 10, fontWei
 const tdStyle = { padding: "6px 4px", textAlign: "center", fontSize: 12, fontFamily: "'JetBrains Mono', monospace" };
 
 // Bracket game component
-function BracketGame({ tmpl, scores, onScoreChange }) {
+function BracketGame({ tmpl, scores, onScoreChange, onScoreBlur }) {
   const homeTeam = resolveBracketTeam(tmpl.homeSeed, scores);
   const awayTeam = resolveBracketTeam(tmpl.awaySeed, scores);
   const sc = scores[tmpl.id] || { home: "", away: "" };
@@ -385,12 +386,12 @@ function BracketGame({ tmpl, scores, onScoreChange }) {
         <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0", borderLeft: homeWin ? "3px solid #22c55e" : "3px solid transparent", paddingLeft: 8 }}>
           <TeamBadge code={homeTeam} />
           <span style={{ flex: 1, fontSize: 12, fontWeight: homeWin ? 700 : 400 }}>{homeTeam ? TEAMS[homeTeam] : tmpl.homeSeed}</span>
-          <ScoreInput value={sc.home} onChange={v => onScoreChange(tmpl.id, "home", v)} />
+          <ScoreInput value={sc.home} onChange={v => onScoreChange(tmpl.id, "home", v)} onBlur={() => onScoreBlur(tmpl.id)} />
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 8, padding: "4px 0", borderLeft: awayWin ? "3px solid #22c55e" : "3px solid transparent", paddingLeft: 8 }}>
           <TeamBadge code={awayTeam} />
           <span style={{ flex: 1, fontSize: 12, fontWeight: awayWin ? 700 : 400 }}>{awayTeam ? TEAMS[awayTeam] : tmpl.awaySeed}</span>
-          <ScoreInput value={sc.away} onChange={v => onScoreChange(tmpl.id, "away", v)} />
+          <ScoreInput value={sc.away} onChange={v => onScoreChange(tmpl.id, "away", v)} onBlur={() => onScoreBlur(tmpl.id)} />
         </div>
       </div>
     </div>
@@ -532,12 +533,6 @@ export default function TournamentTracker() {
       const next = { ...prev, [gameId]: { ...prev[gameId], [side]: value === "" ? "" : value } };
       const updated = next[gameId];
       if (updated.home !== "" && updated.away !== "") {
-        const h = parseInt(updated.home), a = parseInt(updated.away);
-        if (!isNaN(h) && !isNaN(a) && h === a) {
-          setDrawAlert(gameId);
-          return { ...prev, [gameId]: { home: "", away: "" } };
-        }
-        setDrawAlert(null);
         const groupGame = GROUP_GAMES.find(g => g.id === gameId);
         const bracketGame = BRACKET_TEMPLATE.find(b => b.id === gameId);
         track("score_update", {
@@ -552,6 +547,19 @@ export default function TournamentTracker() {
         if (allBracketFilled) track("bracket_complete");
       }
       return next;
+    });
+  }, []);
+
+  const handleScoreBlur = useCallback((gameId) => {
+    setScores(prev => {
+      const s = prev[gameId];
+      if (!s || s.home === "" || s.away === "") return prev;
+      const h = parseInt(s.home), a = parseInt(s.away);
+      if (!isNaN(h) && !isNaN(a) && h === a) {
+        setDrawAlert(gameId);
+        return { ...prev, [gameId]: { home: "", away: "" } };
+      }
+      return prev;
     });
   }, []);
 
@@ -724,7 +732,7 @@ export default function TournamentTracker() {
                 }}>{DAY_LABELS[day]} — Group Stage</h4>
                 <div style={{ display: "flex", flexDirection: "column", gap: 2, background: "#fff", borderRadius: 8, padding: 8, border: "1px solid #e2e8f0" }}>
                   {GROUP_GAMES.filter(g => g.day === day).map(g => (
-                    <GameRow key={g.id} game={g} score={scores[g.id]} onScoreChange={handleScoreChange} />
+                    <GameRow key={g.id} game={g} score={scores[g.id]} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                   ))}
                 </div>
               </div>
@@ -749,14 +757,14 @@ export default function TournamentTracker() {
                   {dayGroupGames.length > 0 && (
                     <div style={{ background: "#fff", borderRadius: 8, padding: 8, border: "1px solid #e2e8f0", marginBottom: 10 }}>
                       {dayGroupGames.map(g => (
-                        <GameRow key={g.id} game={g} score={scores[g.id]} onScoreChange={handleScoreChange} />
+                        <GameRow key={g.id} game={g} score={scores[g.id]} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                       ))}
                     </div>
                   )}
                   {dayBracketGames.length > 0 && (
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                       {dayBracketGames.map(b => (
-                        <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                        <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                       ))}
                     </div>
                   )}
@@ -811,7 +819,7 @@ export default function TournamentTracker() {
               </h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("QF")).map(b => (
-                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                 ))}
               </div>
             </div>
@@ -822,7 +830,7 @@ export default function TournamentTracker() {
               </h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("TE")).map(b => (
-                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                 ))}
               </div>
             </div>
@@ -833,7 +841,7 @@ export default function TournamentTracker() {
               </h4>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
                 {BRACKET_TEMPLATE.filter(b => b.label.startsWith("SF")).map(b => (
-                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                  <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
                 ))}
               </div>
             </div>
@@ -855,7 +863,7 @@ export default function TournamentTracker() {
             )}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(260px, 100%), 1fr))", gap: 12 }}>
               {BRACKET_TEMPLATE.filter(b => b.label.startsWith("R-")).map(b => (
-                <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
               ))}
             </div>
           </div>
@@ -876,7 +884,7 @@ export default function TournamentTracker() {
             )}
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))", gap: 16 }}>
               {BRACKET_TEMPLATE.filter(b => ["7th/8th", "5th/6th", "3rd/4th", "FINAL"].includes(b.label)).map(b => (
-                <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} />
+                <BracketGame key={b.id} tmpl={b} scores={scores} onScoreChange={handleScoreChange} onScoreBlur={handleScoreBlur} />
               ))}
             </div>
 
