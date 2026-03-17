@@ -85,8 +85,8 @@ const BRACKET_TEMPLATE = [
   { id: 44, label: "TE1", homeSeed: "LQ1", awaySeed: "LQ2", day: "SAT", time: "11:00", venue: "Palais" },
   { id: 45, label: "TE2", homeSeed: "LQ3", awaySeed: "LQ4", day: "SAT", time: "13:00", venue: "Palais" },
   { id: 46, label: "R-15/16", homeSeed: "G15", awaySeed: "G16", day: "SAT", time: "15:00", venue: "Palais" },
-  { id: 47, label: "SF1", homeSeed: "WQ1", awaySeed: "WQ2", day: "SAT", time: "17:00", venue: "Palais" },
-  { id: 48, label: "SF2", homeSeed: "WQ3", awaySeed: "WQ4", day: "SAT", time: "19:00", venue: "Palais" },
+  { id: 47, label: "SF1", homeSeed: "WQ1", awaySeed: "WQ4", day: "SAT", time: "17:00", venue: "Palais" },
+  { id: 48, label: "SF2", homeSeed: "WQ3", awaySeed: "WQ2", day: "SAT", time: "19:00", venue: "Palais" },
   { id: 49, label: "R-11/12", homeSeed: "G11", awaySeed: "G12", day: "SAT", time: "21:00", venue: "Palais" },
   { id: 50, label: "R-9/10", homeSeed: "G9", awaySeed: "G10", day: "SUN", time: "09:00", venue: "Palais" },
   { id: 51, label: "7th/8th", homeSeed: "LTE1", awaySeed: "LTE2", day: "SUN", time: "11:00", venue: "Palais" },
@@ -193,29 +193,30 @@ function resolveTeamForSeed(seed, scores) {
   return team ? team.team : null;
 }
 
+function gameResult(scores, gameId) {
+  const s = scores[gameId];
+  if (!s || s.home === "" || s.away === "") return null;
+  const h = parseInt(s.home), a = parseInt(s.away);
+  if (isNaN(h) || isNaN(a)) return null;
+  return { h, a, gameId };
+}
+
 function resolveBracketTeam(seed, scores) {
   if (seed.startsWith("G")) return resolveTeamForSeed(seed, scores);
-  // QF winners/losers
-  if (seed === "WQ1") { const s = scores[40]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(40, scores, "home") : resolveBracketGame(40, scores, "away"); return null; }
-  if (seed === "WQ2") { const s = scores[39]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(39, scores, "home") : resolveBracketGame(39, scores, "away"); return null; }
-  if (seed === "WQ3") { const s = scores[37]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(37, scores, "home") : resolveBracketGame(37, scores, "away"); return null; }
-  if (seed === "WQ4") { const s = scores[38]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(38, scores, "home") : resolveBracketGame(38, scores, "away"); return null; }
-  if (seed === "LQ1") { const s = scores[40]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(40, scores, "home") : resolveBracketGame(40, scores, "away"); return null; }
-  if (seed === "LQ2") { const s = scores[39]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(39, scores, "home") : resolveBracketGame(39, scores, "away"); return null; }
-  if (seed === "LQ3") { const s = scores[37]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(37, scores, "home") : resolveBracketGame(37, scores, "away"); return null; }
-  if (seed === "LQ4") { const s = scores[38]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(38, scores, "home") : resolveBracketGame(38, scores, "away"); return null; }
-  // SF winners/losers
-  if (seed === "WS1") { const s = scores[47]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(47, scores, "home") : resolveBracketGame(47, scores, "away"); return null; }
-  if (seed === "WS2") { const s = scores[48]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(48, scores, "home") : resolveBracketGame(48, scores, "away"); return null; }
-  if (seed === "LS1") { const s = scores[47]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(47, scores, "home") : resolveBracketGame(47, scores, "away"); return null; }
-  if (seed === "LS2") { const s = scores[48]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(48, scores, "home") : resolveBracketGame(48, scores, "away"); return null; }
-  // TE winners for 5th/6th
-  if (seed === "WTE1") { const s = scores[44]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(44, scores, "home") : resolveBracketGame(44, scores, "away"); return null; }
-  if (seed === "WTE2") { const s = scores[45]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) > parseInt(s.away) ? resolveBracketGame(45, scores, "home") : resolveBracketGame(45, scores, "away"); return null; }
-  // TE losers for 7th/8th
-  if (seed === "LTE1") { const s = scores[44]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(44, scores, "home") : resolveBracketGame(44, scores, "away"); return null; }
-  if (seed === "LTE2") { const s = scores[45]; if (s?.home !== "" && s?.away !== "") return parseInt(s.home) < parseInt(s.away) ? resolveBracketGame(45, scores, "home") : resolveBracketGame(45, scores, "away"); return null; }
-  return null;
+  const seedMap = {
+    WQ1: [40, "w"], WQ2: [38, "w"], WQ3: [39, "w"], WQ4: [37, "w"],
+    LQ1: [40, "l"], LQ2: [38, "l"], LQ3: [39, "l"], LQ4: [37, "l"],
+    WS1: [47, "w"], WS2: [48, "w"], LS1: [47, "l"], LS2: [48, "l"],
+    WTE1: [44, "w"], WTE2: [45, "w"], LTE1: [44, "l"], LTE2: [45, "l"],
+  };
+  const entry = seedMap[seed];
+  if (!entry) return null;
+  const [gameId, wl] = entry;
+  const r = gameResult(scores, gameId);
+  if (!r) return null;
+  const winnerSide = r.h > r.a ? "home" : "away";
+  const side = wl === "w" ? winnerSide : (winnerSide === "home" ? "away" : "home");
+  return resolveBracketGame(gameId, scores, side);
 }
 
 function resolveBracketGame(gameId, scores, side) {
