@@ -4,7 +4,7 @@ sidebar_position: 1
 
 # Introduction
 
-The **2026 MRDA World Cup Tracker** is a single-page web app for following the 2026 [MRDA (Men's Roller Derby Association)](https://www.mrda.info) World Cup in real time.
+The **2026 MRD World Cup Tracker** is a single-page web app for following the 2026 MRD (Men's Roller Derby) World Cup in real time.
 
 Users enter game scores as they happen; the app instantly computes group standings, overall seedings (G1–G24), and bracket progression through to the final.
 

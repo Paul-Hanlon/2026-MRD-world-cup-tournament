@@ -1,8 +1,8 @@
-# PRD: 2026 MRDA World Cup Tournament Tracker
+# PRD: 2026 MRD World Cup Tournament Tracker
 
 ## 1. Overview
 
-A single-page web app for tracking the 2026 MRDA (Men's Roller Derby Association) World Cup. Users enter game scores live; the app computes group standings, overall seedings, and bracket progression through to the final.
+A single-page web app for tracking the 2026 MRD (Men's Roller Derby) World Cup. Users enter game scores live; the app computes group standings, overall seedings, and bracket progression through to the final.
 
 ---
 

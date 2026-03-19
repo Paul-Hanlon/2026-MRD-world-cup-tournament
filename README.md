@@ -1,6 +1,6 @@
-# 2026 MRDA World Cup Tournament Tracker
+# 2026 MRD World Cup Tournament Tracker
 
-A single-page app for tracking the 2026 [MRDA](https://mrda.org) (Men's Roller Derby Association) World Cup tournament. Enter game scores and the app computes group standings, overall rankings, and bracket progression through to the final.
+A single-page app for tracking the 2026 MRD (Men's Roller Derby) World Cup tournament. Enter game scores and the app computes group standings, overall rankings, and bracket progression through to the final.
 
 **Live app:** deployed on Vercel
 

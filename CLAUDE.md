@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-A single-page React app for tracking the 2026 MRDA (Men's Roller Derby Association) World Cup tournament. Users enter game scores and the app computes group standings, overall rankings, and bracket progression through to the final. Deployed on Vercel.
+A single-page React app for tracking the 2026 MRD (Men's Roller Derby) World Cup tournament. Users enter game scores and the app computes group standings, overall rankings, and bracket progression through to the final. Deployed on Vercel.
 
 ## Commands
 
