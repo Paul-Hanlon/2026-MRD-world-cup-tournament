@@ -25,7 +25,7 @@ function HomepageHeader() {
           </Link>
           <Link
             className="button button--secondary button--lg"
-            href="https://2026-mrda-world-cup-tournament.vercel.app"
+            href="https://2026-mrd-world-cup-tournament.vercel.app"
             style={{marginLeft: '1rem'}}>
             Open the App
           </Link>

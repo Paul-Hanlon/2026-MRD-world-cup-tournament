@@ -8,7 +8,7 @@ The **2026 MRD World Cup Tracker** is a single-page web app for following the 20
 
 Users enter game scores as they happen; the app instantly computes group standings, overall seedings (G1–G24), and bracket progression through to the final.
 
-**[Open the live app](https://2026-mrda-world-cup-tournament.vercel.app)**
+**[Open the live app](https://2026-mrd-world-cup-tournament.vercel.app)**
 
 ---
 
