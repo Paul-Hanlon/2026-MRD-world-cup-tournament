@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'file=$(echo \"$CLAUDE_TOOL_INPUT\" | python3 -c \"import sys,json; d=json.load(sys.stdin); print(d.get(\\\"file_path\\\",\\\"\\\"))\" 2>/dev/null); [[ \"$file\" == *\"tournament.jsx\"* ]] && echo \"DOCS REMINDER: tournament.jsx was modified. Review 2026-mrd-world-cup-tracker/docs/ and update any pages that describe changed behaviour (ranking logic, bracket structure, app features, schedule).\"'"
+          }
+        ]
+      }
+    ]
+  }
+}

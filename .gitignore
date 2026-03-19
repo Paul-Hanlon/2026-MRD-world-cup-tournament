@@ -1,2 +1,6 @@
 node_modules
 dist
+.vercel
+.env*.local
+2026-mrd-world-cup-tracker/build/
+2026-mrd-world-cup-tracker/.docusaurus/

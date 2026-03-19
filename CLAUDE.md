@@ -43,3 +43,30 @@ This is a minimal Vite + React 19 project with almost all logic in a single file
 - `tournament-1.jsx` is an earlier snapshot/backup of `tournament.jsx` (untracked).
 - All styling is inline — there are no CSS files. The app uses a dark theme with team-specific accent colors from `TEAM_COLORS`.
 - Vercel Analytics is integrated via `@vercel/analytics` with custom event tracking (`track()` calls).
+
+## Documentation
+
+The project docs live in `2026-mrd-world-cup-tracker/` — a Docusaurus site deployed to GitHub Pages on every push to `main`.
+
+### Commands (run from `2026-mrd-world-cup-tracker/`)
+
+- `npm start` — local dev server (hot reload)
+- `npm run build` — production build to `2026-mrd-world-cup-tracker/build/`
+- `npm run serve` — preview the production build locally
+
+### Deployed URL
+
+`https://paul-hanlon.github.io/2026-MRDA-world-cup-tournament-/`
+
+### Doc pages
+
+| File | Content |
+|------|---------|
+| `docs/intro.md` | App overview and feature summary |
+| `docs/tournament-format.md` | Teams, groups, full schedule tables, bracket structure |
+| `docs/ranking-algorithm.md` | Group standings, Drop Worst Loss rule, G1–G24 seedings, seed resolution |
+| `docs/app-usage.md` | Score entry, tabs, export/import, reset |
+
+### Hook reminder
+
+A Claude Code hook in `.claude/settings.json` outputs a **DOCS REMINDER** message whenever `tournament.jsx` is edited. When you see this reminder, review the doc pages above and update any that describe changed behaviour.
