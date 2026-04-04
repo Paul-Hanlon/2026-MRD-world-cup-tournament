@@ -10,12 +10,12 @@ sidebar_position: 2
 
 | Group | Seed A | Seed B | Seed C | Seed D |
 |-------|--------|--------|--------|--------|
-| 1 | Spain (SPA) | Mexico (MEX) | API Fury (API) | Scotland (SCO) |
-| 2 | France (FRA) | Japan (JPN) | Chile (CHI) | Wales (WLS) |
-| 3 | Colombia (COL) | Ireland (IRE) | Argentina (ARG) | Italy (ITA) |
-| 4 | Hawaii (HI) | Australia (AUS) | Germany (GER) | England (ENG) |
-| 5 | K.Union (KU) | Netherlands (NL) | Canada (CAN) | S.Campaign (SC) |
-| 6 | New Zealand (NZ) | USA | Catalan (CAT) | Belgium (BEL) |
+| 1 | Mexico (MEX) | Ireland (IRL) | S.Campaign (SC) | Netherlands (NLD) |
+| 2 | New Zealand (NZ) | France (FRA) | Hawaii (HI) | Wales (WLS) |
+| 3 | Germany (GER) | P.Catalan (PDC) | Australia (AUS) | Argentina (ARG) |
+| 4 | Scotland (SCO) | Colombia (COL) | Spain (SPA) | USA |
+| 5 | Italy (ITA) | K.Union (KU) | Japan (JPN) | Canada (CAN) |
+| 6 | Belgium (BEL) | API Fury (API) | England (ENG) | Chile (CHI) |
 
 ---
 
@@ -29,47 +29,47 @@ Each group plays 6 round-robin games: AvB, CvD, AvC, BvD, AvD, BvC. Every team p
 
 | Game | Time | Venue | Home | Away | Group | Round |
 |------|------|-------|------|------|-------|-------|
-| 1 | 09:00 | Palais | FRA | JPN | 2 | AvB |
-| 2 | 09:00 | CR/Argo | SPA | MEX | 1 | AvB |
-| 3 | 10:05 | Palais | HI | AUS | 4 | AvB |
-| 4 | 10:05 | CR/Argo | COL | IRE | 3 | AvB |
-| 5 | 11:10 | Palais | USA | NZ | 6 | AvB |
-| 6 | 11:10 | CR/Argo | KU | NL | 5 | AvB |
-| 7 | 12:15 | Palais | CHI | WLS | 2 | CvD |
-| 8 | 12:15 | CR/Argo | API | SCO | 1 | CvD |
-| 9 | 13:20 | Palais | GER | ENG | 4 | CvD |
-| 10 | 13:20 | CR/Argo | ARG | ITA | 3 | CvD |
-| 11 | 14:25 | Palais | CAT | BEL | 6 | CvD |
-| 12 | 14:25 | CR/Argo | CAN | SC | 5 | CvD |
-| 13 | 15:30 | Palais | FRA | CHI | 2 | AvC |
-| 14 | 15:30 | CR/Argo | SPA | API | 1 | AvC |
-| 15 | 16:35 | Palais | HI | GER | 4 | AvC |
-| 16 | 16:35 | CR/Argo | COL | ARG | 3 | AvC |
-| 17 | 17:40 | Palais | NZ | CAT | 6 | AvC |
-| 18 | 17:40 | CR/Argo | KU | CAN | 5 | AvC |
-| 19 | 18:45 | Palais | MEX | SCO | 1 | BvD |
-| 20 | 18:45 | CR/Argo | JPN | WLS | 2 | BvD |
-| 21 | 19:50 | Palais | IRE | ITA | 3 | BvD |
-| 22 | 19:50 | CR/Argo | AUS | ENG | 4 | BvD |
-| 23 | 20:55 | Palais | NL | SC | 5 | BvD |
-| 24 | 20:55 | CR/Argo | USA | BEL | 6 | BvD |
+| 1 | 09:00 | Palais | MEX | IRL | 1 | AvB |
+| 2 | 09:00 | CR/Argo | NZ | FRA | 2 | AvB |
+| 3 | 10:00 | Palais | GER | PDC | 3 | AvB |
+| 4 | 10:00 | CR/Argo | SCO | COL | 4 | AvB |
+| 5 | 11:00 | Palais | ITA | KU | 5 | AvB |
+| 6 | 11:00 | CR/Argo | BEL | API | 6 | AvB |
+| 7 | 12:00 | Palais | SC | NLD | 1 | CvD |
+| 8 | 12:00 | CR/Argo | HI | WLS | 2 | CvD |
+| 9 | 13:00 | Palais | AUS | ARG | 3 | CvD |
+| 10 | 13:00 | CR/Argo | SPA | USA | 4 | CvD |
+| 11 | 14:00 | Palais | JPN | CAN | 5 | CvD |
+| 12 | 14:00 | CR/Argo | ENG | CHI | 6 | CvD |
+| 13 | 15:00 | Palais | NZ | HI | 2 | AvC |
+| 14 | 15:00 | CR/Argo | MEX | SC | 1 | AvC |
+| 15 | 16:00 | Palais | SCO | SPA | 4 | AvC |
+| 16 | 16:00 | CR/Argo | GER | AUS | 3 | AvC |
+| 17 | 17:00 | Palais | BEL | ENG | 6 | AvC |
+| 18 | 17:00 | CR/Argo | ITA | JPN | 5 | AvC |
+| 19 | 18:00 | Palais | FRA | WLS | 2 | BvD |
+| 20 | 18:00 | CR/Argo | IRL | NLD | 1 | BvD |
+| 21 | 19:00 | Palais | COL | USA | 4 | BvD |
+| 22 | 19:00 | CR/Argo | PDC | ARG | 3 | BvD |
+| 23 | 20:00 | Palais | API | CHI | 6 | BvD |
+| 24 | 20:00 | CR/Argo | KU | CAN | 5 | BvD |
 
 ### Friday Schedule (Games 25–36)
 
 | Game | Time | Venue | Home | Away | Group | Round |
 |------|------|-------|------|------|-------|-------|
-| 25 | 09:00 | Palais | SPA | SCO | 1 | AvD |
-| 26 | 09:00 | CR/Argo | FRA | WLS | 2 | AvD |
-| 27 | 10:05 | Palais | COL | ITA | 3 | AvD |
-| 28 | 10:05 | CR/Argo | HI | ENG | 4 | AvD |
-| 29 | 11:10 | Palais | KU | SC | 5 | AvD |
-| 30 | 11:10 | CR/Argo | NZ | BEL | 6 | AvD |
-| 31 | 12:15 | Palais | JPN | CHI | 2 | BvC |
-| 32 | 12:15 | CR/Argo | MEX | API | 1 | BvC |
-| 33 | 13:20 | Palais | AUS | GER | 4 | BvC |
-| 34 | 13:20 | CR/Argo | IRE | ARG | 3 | BvC |
-| 35 | 14:25 | Palais | USA | CAT | 6 | BvC |
-| 36 | 14:25 | CR/Argo | NL | CAN | 5 | BvC |
+| 25 | 09:00 | Palais | MEX | NLD | 1 | AvD |
+| 26 | 09:00 | CR/Argo | NZ | WLS | 2 | AvD |
+| 27 | 10:00 | Palais | GER | ARG | 3 | AvD |
+| 28 | 10:00 | CR/Argo | SCO | USA | 4 | AvD |
+| 29 | 11:00 | Palais | ITA | CAN | 5 | AvD |
+| 30 | 11:00 | CR/Argo | BEL | CHI | 6 | AvD |
+| 31 | 12:00 | Palais | FRA | HI | 2 | BvC |
+| 32 | 12:00 | CR/Argo | IRL | SC | 1 | BvC |
+| 33 | 13:00 | Palais | COL | SPA | 4 | BvC |
+| 34 | 13:00 | CR/Argo | PDC | AUS | 3 | BvC |
+| 35 | 14:00 | Palais | API | ENG | 6 | BvC |
+| 36 | 14:00 | CR/Argo | KU | JPN | 5 | BvC |
 
 ---
 

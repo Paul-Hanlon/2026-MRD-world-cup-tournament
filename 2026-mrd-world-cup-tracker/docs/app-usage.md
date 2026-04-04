@@ -19,7 +19,7 @@ All entered scores are saved to `localStorage` automatically. They survive page 
 
 ## Tabs / Navigation
 
-The app has four main views selectable via the top tab bar:
+The app has six main views selectable via the top tab bar, plus a header button for event info:
 
 | Tab | What it shows |
 |-----|---------------|
@@ -27,6 +27,10 @@ The app has four main views selectable via the top tab bar:
 | **Schedule** | Full game schedule (all 54 games) with current scores and status |
 | **Rankings** | Overall G1–G24 seedings computed from completed group games |
 | **Bracket** | Knockout bracket from QFs through to the Final, with auto-resolved team names |
+| **9-20 Play** | Seeds 9–20 ranking/placement games |
+| **Finals** | Championship Sunday matches and final standings |
+
+The **Event Info** button in the header opens a detailed day-by-day event timeline showing game rules, captains meetings, warm-up schedules, buffer times, and special events (Parade of Nations, Awards).
 
 ---
 

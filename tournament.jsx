@@ -3,74 +3,74 @@ import { track } from "@vercel/analytics";
 
 const TEAMS = {
   FRA: "France", JPN: "Japan", SPA: "Spain", MEX: "Mexico",
-  HI: "Hawaii", AUS: "Australia", COL: "Colombia", IRE: "Ireland",
-  USA: "USA", NZ: "New Zealand", KU: "K.Union", NL: "Netherlands",
+  HI: "Hawaii", AUS: "Australia", COL: "Colombia", IRL: "Ireland",
+  USA: "USA", NZ: "New Zealand", KU: "K.Union", NLD: "Netherlands",
   CHI: "Chile", WLS: "Wales", API: "API Fury", SCO: "Scotland",
   GER: "Germany", ENG: "England", ARG: "Argentina", ITA: "Italy",
-  CAT: "Catalan", BEL: "Belgium", CAN: "Canada", SC: "S.Campaign"
+  PDC: "P.Catalan", BEL: "Belgium", CAN: "Canada", SC: "S.Campaign"
 };
 
 const TEAM_COLORS = {
   FRA: "#002395", JPN: "#BC002D", SPA: "#AA151B", MEX: "#006341",
-  HI: "#CE1126", AUS: "#FFCD00", COL: "#FCD116", IRE: "#169B62",
-  USA: "#3C3B6E", NZ: "#1a1a1a", KU: "#D4213D", NL: "#FF6600",
+  HI: "#CE1126", AUS: "#FFCD00", COL: "#FCD116", IRL: "#169B62",
+  USA: "#3C3B6E", NZ: "#1a1a1a", KU: "#D4213D", NLD: "#FF6600",
   CHI: "#D52B1E", WLS: "#D4213D", API: "#4B0082", SCO: "#005EB8",
   GER: "#DD0000", ENG: "#CF081F", ARG: "#75AADB", ITA: "#008C45",
-  CAT: "#FCDD09", BEL: "#ED2939", CAN: "#FF0000", SC: "#C8102E"
+  PDC: "#FCDD09", BEL: "#ED2939", CAN: "#FF0000", SC: "#C8102E"
 };
 
 const GROUPS = {
-  1: { name: "Group 1", teams: ["SPA", "MEX", "API", "SCO"], label: "A/B/C/D" },
-  2: { name: "Group 2", teams: ["FRA", "JPN", "CHI", "WLS"], label: "A/B/C/D" },
-  3: { name: "Group 3", teams: ["COL", "IRE", "ARG", "ITA"], label: "A/B/C/D" },
-  4: { name: "Group 4", teams: ["HI", "AUS", "GER", "ENG"], label: "A/B/C/D" },
-  5: { name: "Group 5", teams: ["KU", "NL", "CAN", "SC"], label: "A/B/C/D" },
-  6: { name: "Group 6", teams: ["NZ", "USA", "CAT", "BEL"], label: "A/B/C/D" }
+  1: { name: "Group 1", teams: ["MEX", "IRL", "SC", "NLD"], label: "A/B/C/D" },
+  2: { name: "Group 2", teams: ["NZ", "FRA", "HI", "WLS"], label: "A/B/C/D" },
+  3: { name: "Group 3", teams: ["GER", "PDC", "AUS", "ARG"], label: "A/B/C/D" },
+  4: { name: "Group 4", teams: ["SCO", "COL", "SPA", "USA"], label: "A/B/C/D" },
+  5: { name: "Group 5", teams: ["ITA", "KU", "JPN", "CAN"], label: "A/B/C/D" },
+  6: { name: "Group 6", teams: ["BEL", "API", "ENG", "CHI"], label: "A/B/C/D" }
 };
 
 const GROUP_GAMES = [
   // Thursday - Round 1 (AvB)
-  { id: 1, home: "FRA", away: "JPN", group: 2, day: "THU", time: "09:00", venue: "Palais", round: "AvB" },
-  { id: 2, home: "SPA", away: "MEX", group: 1, day: "THU", time: "09:00", venue: "CR/Argo", round: "AvB" },
-  { id: 3, home: "HI", away: "AUS", group: 4, day: "THU", time: "10:05", venue: "Palais", round: "AvB" },
-  { id: 4, home: "COL", away: "IRE", group: 3, day: "THU", time: "10:05", venue: "CR/Argo", round: "AvB" },
-  { id: 5, home: "USA", away: "NZ", group: 6, day: "THU", time: "11:10", venue: "Palais", round: "AvB" },
-  { id: 6, home: "KU", away: "NL", group: 5, day: "THU", time: "11:10", venue: "CR/Argo", round: "AvB" },
+  { id: 1, home: "MEX", away: "IRL", group: 1, day: "THU", time: "09:00", venue: "Palais", round: "AvB" },
+  { id: 2, home: "NZ", away: "FRA", group: 2, day: "THU", time: "09:00", venue: "CR/Argo", round: "AvB" },
+  { id: 3, home: "GER", away: "PDC", group: 3, day: "THU", time: "10:00", venue: "Palais", round: "AvB" },
+  { id: 4, home: "SCO", away: "COL", group: 4, day: "THU", time: "10:00", venue: "CR/Argo", round: "AvB" },
+  { id: 5, home: "ITA", away: "KU", group: 5, day: "THU", time: "11:00", venue: "Palais", round: "AvB" },
+  { id: 6, home: "BEL", away: "API", group: 6, day: "THU", time: "11:00", venue: "CR/Argo", round: "AvB" },
   // Round 1 (CvD)
-  { id: 7, home: "CHI", away: "WLS", group: 2, day: "THU", time: "12:15", venue: "Palais", round: "CvD" },
-  { id: 8, home: "API", away: "SCO", group: 1, day: "THU", time: "12:15", venue: "CR/Argo", round: "CvD" },
-  { id: 9, home: "GER", away: "ENG", group: 4, day: "THU", time: "13:20", venue: "Palais", round: "CvD" },
-  { id: 10, home: "ARG", away: "ITA", group: 3, day: "THU", time: "13:20", venue: "CR/Argo", round: "CvD" },
-  { id: 11, home: "CAT", away: "BEL", group: 6, day: "THU", time: "14:25", venue: "Palais", round: "CvD" },
-  { id: 12, home: "CAN", away: "SC", group: 5, day: "THU", time: "14:25", venue: "CR/Argo", round: "CvD" },
+  { id: 7, home: "SC", away: "NLD", group: 1, day: "THU", time: "12:00", venue: "Palais", round: "CvD" },
+  { id: 8, home: "HI", away: "WLS", group: 2, day: "THU", time: "12:00", venue: "CR/Argo", round: "CvD" },
+  { id: 9, home: "AUS", away: "ARG", group: 3, day: "THU", time: "13:00", venue: "Palais", round: "CvD" },
+  { id: 10, home: "SPA", away: "USA", group: 4, day: "THU", time: "13:00", venue: "CR/Argo", round: "CvD" },
+  { id: 11, home: "JPN", away: "CAN", group: 5, day: "THU", time: "14:00", venue: "Palais", round: "CvD" },
+  { id: 12, home: "ENG", away: "CHI", group: 6, day: "THU", time: "14:00", venue: "CR/Argo", round: "CvD" },
   // Round 2 (AvC)
-  { id: 13, home: "FRA", away: "CHI", group: 2, day: "THU", time: "15:30", venue: "Palais", round: "AvC" },
-  { id: 14, home: "SPA", away: "API", group: 1, day: "THU", time: "15:30", venue: "CR/Argo", round: "AvC" },
-  { id: 15, home: "HI", away: "GER", group: 4, day: "THU", time: "16:35", venue: "Palais", round: "AvC" },
-  { id: 16, home: "COL", away: "ARG", group: 3, day: "THU", time: "16:35", venue: "CR/Argo", round: "AvC" },
-  { id: 17, home: "NZ", away: "CAT", group: 6, day: "THU", time: "17:40", venue: "Palais", round: "AvC" },
-  { id: 18, home: "KU", away: "CAN", group: 5, day: "THU", time: "17:40", venue: "CR/Argo", round: "AvC" },
+  { id: 13, home: "NZ", away: "HI", group: 2, day: "THU", time: "15:00", venue: "Palais", round: "AvC" },
+  { id: 14, home: "MEX", away: "SC", group: 1, day: "THU", time: "15:00", venue: "CR/Argo", round: "AvC" },
+  { id: 15, home: "SCO", away: "SPA", group: 4, day: "THU", time: "16:00", venue: "Palais", round: "AvC" },
+  { id: 16, home: "GER", away: "AUS", group: 3, day: "THU", time: "16:00", venue: "CR/Argo", round: "AvC" },
+  { id: 17, home: "BEL", away: "ENG", group: 6, day: "THU", time: "17:00", venue: "Palais", round: "AvC" },
+  { id: 18, home: "ITA", away: "JPN", group: 5, day: "THU", time: "17:00", venue: "CR/Argo", round: "AvC" },
   // Round 2 (BvD)
-  { id: 19, home: "MEX", away: "SCO", group: 1, day: "THU", time: "18:45", venue: "Palais", round: "BvD" },
-  { id: 20, home: "JPN", away: "WLS", group: 2, day: "THU", time: "18:45", venue: "CR/Argo", round: "BvD" },
-  { id: 21, home: "IRE", away: "ITA", group: 3, day: "THU", time: "19:50", venue: "Palais", round: "BvD" },
-  { id: 22, home: "AUS", away: "ENG", group: 4, day: "THU", time: "19:50", venue: "CR/Argo", round: "BvD" },
-  { id: 23, home: "NL", away: "SC", group: 5, day: "THU", time: "20:55", venue: "Palais", round: "BvD" },
-  { id: 24, home: "USA", away: "BEL", group: 6, day: "THU", time: "20:55", venue: "CR/Argo", round: "BvD" },
+  { id: 19, home: "FRA", away: "WLS", group: 2, day: "THU", time: "18:00", venue: "Palais", round: "BvD" },
+  { id: 20, home: "IRL", away: "NLD", group: 1, day: "THU", time: "18:00", venue: "CR/Argo", round: "BvD" },
+  { id: 21, home: "COL", away: "USA", group: 4, day: "THU", time: "19:00", venue: "Palais", round: "BvD" },
+  { id: 22, home: "PDC", away: "ARG", group: 3, day: "THU", time: "19:00", venue: "CR/Argo", round: "BvD" },
+  { id: 23, home: "API", away: "CHI", group: 6, day: "THU", time: "20:00", venue: "Palais", round: "BvD" },
+  { id: 24, home: "KU", away: "CAN", group: 5, day: "THU", time: "20:00", venue: "CR/Argo", round: "BvD" },
   // Friday - Round 3 (AvD)
-  { id: 25, home: "SPA", away: "SCO", group: 1, day: "FRI", time: "09:00", venue: "Palais", round: "AvD" },
-  { id: 26, home: "FRA", away: "WLS", group: 2, day: "FRI", time: "09:00", venue: "CR/Argo", round: "AvD" },
-  { id: 27, home: "COL", away: "ITA", group: 3, day: "FRI", time: "10:05", venue: "Palais", round: "AvD" },
-  { id: 28, home: "HI", away: "ENG", group: 4, day: "FRI", time: "10:05", venue: "CR/Argo", round: "AvD" },
-  { id: 29, home: "KU", away: "SC", group: 5, day: "FRI", time: "11:10", venue: "Palais", round: "AvD" },
-  { id: 30, home: "NZ", away: "BEL", group: 6, day: "FRI", time: "11:10", venue: "CR/Argo", round: "AvD" },
+  { id: 25, home: "MEX", away: "NLD", group: 1, day: "FRI", time: "09:00", venue: "Palais", round: "AvD" },
+  { id: 26, home: "NZ", away: "WLS", group: 2, day: "FRI", time: "09:00", venue: "CR/Argo", round: "AvD" },
+  { id: 27, home: "GER", away: "ARG", group: 3, day: "FRI", time: "10:00", venue: "Palais", round: "AvD" },
+  { id: 28, home: "SCO", away: "USA", group: 4, day: "FRI", time: "10:00", venue: "CR/Argo", round: "AvD" },
+  { id: 29, home: "ITA", away: "CAN", group: 5, day: "FRI", time: "11:00", venue: "Palais", round: "AvD" },
+  { id: 30, home: "BEL", away: "CHI", group: 6, day: "FRI", time: "11:00", venue: "CR/Argo", round: "AvD" },
   // Round 3 (BvC)
-  { id: 31, home: "JPN", away: "CHI", group: 2, day: "FRI", time: "12:15", venue: "Palais", round: "BvC" },
-  { id: 32, home: "MEX", away: "API", group: 1, day: "FRI", time: "12:15", venue: "CR/Argo", round: "BvC" },
-  { id: 33, home: "AUS", away: "GER", group: 4, day: "FRI", time: "13:20", venue: "Palais", round: "BvC" },
-  { id: 34, home: "IRE", away: "ARG", group: 3, day: "FRI", time: "13:20", venue: "CR/Argo", round: "BvC" },
-  { id: 35, home: "USA", away: "CAT", group: 6, day: "FRI", time: "14:25", venue: "Palais", round: "BvC" },
-  { id: 36, home: "NL", away: "CAN", group: 5, day: "FRI", time: "14:25", venue: "CR/Argo", round: "BvC" },
+  { id: 31, home: "FRA", away: "HI", group: 2, day: "FRI", time: "12:00", venue: "Palais", round: "BvC" },
+  { id: 32, home: "IRL", away: "SC", group: 1, day: "FRI", time: "12:00", venue: "CR/Argo", round: "BvC" },
+  { id: 33, home: "COL", away: "SPA", group: 4, day: "FRI", time: "13:00", venue: "Palais", round: "BvC" },
+  { id: 34, home: "PDC", away: "AUS", group: 3, day: "FRI", time: "13:00", venue: "CR/Argo", round: "BvC" },
+  { id: 35, home: "API", away: "ENG", group: 6, day: "FRI", time: "14:00", venue: "Palais", round: "BvC" },
+  { id: 36, home: "KU", away: "JPN", group: 5, day: "FRI", time: "14:00", venue: "CR/Argo", round: "BvC" },
 ];
 
 // Bracket & ranking games (ids determined by group results)
@@ -85,8 +85,8 @@ const BRACKET_TEMPLATE = [
   { id: 44, label: "TE1", homeSeed: "LQ1", awaySeed: "LQ2", day: "SAT", time: "11:00", venue: "Palais" },
   { id: 45, label: "TE2", homeSeed: "LQ3", awaySeed: "LQ4", day: "SAT", time: "13:00", venue: "Palais" },
   { id: 46, label: "R-15/16", homeSeed: "G15", awaySeed: "G16", day: "SAT", time: "15:00", venue: "Palais" },
-  { id: 47, label: "SF1", homeSeed: "WQ1", awaySeed: "WQ4", day: "SAT", time: "17:00", venue: "Palais" },
-  { id: 48, label: "SF2", homeSeed: "WQ3", awaySeed: "WQ2", day: "SAT", time: "19:00", venue: "Palais" },
+  { id: 47, label: "SF1", homeSeed: "WQ1", awaySeed: "WQ2", day: "SAT", time: "17:00", venue: "Palais" },
+  { id: 48, label: "SF2", homeSeed: "WQ3", awaySeed: "WQ4", day: "SAT", time: "19:00", venue: "Palais" },
   { id: 49, label: "R-11/12", homeSeed: "G11", awaySeed: "G12", day: "SAT", time: "21:00", venue: "Palais" },
   { id: 50, label: "R-9/10", homeSeed: "G9", awaySeed: "G10", day: "SUN", time: "09:00", venue: "Palais" },
   { id: 51, label: "7th/8th", homeSeed: "LTE1", awaySeed: "LTE2", day: "SUN", time: "11:00", venue: "Palais" },
@@ -97,6 +97,271 @@ const BRACKET_TEMPLATE = [
 
 const DAY_LABELS = { THU: "Thursday", FRI: "Friday", SAT: "Saturday", SUN: "Sunday" };
 const DAY_ORDER = ["THU", "FRI", "SAT", "SUN"];
+
+const GAME_RULES = [
+  "30-minute games: 2 \u00d7 15 min halves with 5-min break to swap benches",
+  "Pool games: hard clock (no stoppages other than injury)",
+  "5 penalties, 1 TTO, 1 OR (neither to be used in final 5 mins of game)",
+  "Full-length bracket games as per standard play",
+  "Buffer time factored in for injury/etc between games",
+];
+
+const DAY_SCHEDULES = [
+  {
+    day: "THU", label: "Thursday", tracks: 2,
+    slots: [
+      { time: "8:40–8:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "8:45–8:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "8:50–8:55", t1: "Warm up", t2: "Warm up" },
+      { time: "8:55–9:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "9:00–9:15", t1: "Game 1 — 1st Half", t2: "Game 2 — 1st Half", game: true },
+      { time: "9:15–9:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "9:25–9:40", t1: "Game 1 — 2nd Half", t2: "Game 2 — 2nd Half", game: true },
+      { time: "9:40–9:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "9:45–9:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "9:50–9:55", t1: "Warm up", t2: "Warm up" },
+      { time: "9:55–10:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "10:00–10:15", t1: "Game 3 — 1st Half", t2: "Game 4 — 1st Half", game: true },
+      { time: "10:15–10:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "10:25–10:40", t1: "Game 3 — 2nd Half", t2: "Game 4 — 2nd Half", game: true },
+      { time: "10:40–10:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "10:45–10:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "10:50–10:55", t1: "Warm up", t2: "Warm up" },
+      { time: "10:55–11:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "11:00–11:15", t1: "Game 5 — 1st Half", t2: "Game 6 — 1st Half", game: true },
+      { time: "11:15–11:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "11:25–11:40", t1: "Game 5 — 2nd Half", t2: "Game 6 — 2nd Half", game: true },
+      { time: "11:40–11:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "11:45–11:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "11:50–11:55", t1: "Warm up", t2: "Warm up" },
+      { time: "11:55–12:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "12:00–12:15", t1: "Game 7 — 1st Half", t2: "Game 8 — 1st Half", game: true },
+      { time: "12:15–12:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "12:25–12:40", t1: "Game 7 — 2nd Half", t2: "Game 8 — 2nd Half", game: true },
+      { time: "12:40–12:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "12:45–12:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "12:50–12:55", t1: "Warm up", t2: "Warm up" },
+      { time: "12:55–13:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "13:00–13:15", t1: "Game 9 — 1st Half", t2: "Game 10 — 1st Half", game: true },
+      { time: "13:15–13:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "13:25–13:40", t1: "Game 9 — 2nd Half", t2: "Game 10 — 2nd Half", game: true },
+      { time: "13:40–13:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "13:45–13:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "13:50–13:55", t1: "Warm up", t2: "Warm up" },
+      { time: "13:55–14:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "14:00–14:15", t1: "Game 11 — 1st Half", t2: "Game 12 — 1st Half", game: true },
+      { time: "14:15–14:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "14:25–14:40", t1: "Game 11 — 2nd Half", t2: "Game 12 — 2nd Half", game: true },
+      { time: "14:40–14:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "14:45–14:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "14:50–14:55", t1: "Warm up", t2: "Warm up" },
+      { time: "14:55–15:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "15:00–15:15", t1: "Game 13 — 1st Half", t2: "Game 14 — 1st Half", game: true },
+      { time: "15:15–15:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "15:25–15:40", t1: "Game 13 — 2nd Half", t2: "Game 14 — 2nd Half", game: true },
+      { time: "15:40–15:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "15:45–15:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "15:50–15:55", t1: "Warm up", t2: "Warm up" },
+      { time: "15:55–16:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "16:00–16:15", t1: "Game 15 — 1st Half", t2: "Game 16 — 1st Half", game: true },
+      { time: "16:15–16:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "16:25–16:40", t1: "Game 15 — 2nd Half", t2: "Game 16 — 2nd Half", game: true },
+      { time: "16:40–16:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "16:45–16:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "16:50–16:55", t1: "Warm up", t2: "Warm up" },
+      { time: "16:55��17:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "17:00–17:15", t1: "Game 17 — 1st Half", t2: "Game 18 — 1st Half", game: true },
+      { time: "17:15–17:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "17:25–17:40", t1: "Game 17 — 2nd Half", t2: "Game 18 — 2nd Half", game: true },
+      { time: "17:40–17:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "17:45–17:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "17:50–17:55", t1: "Warm up", t2: "Warm up" },
+      { time: "17:55–18:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "18:00–18:15", t1: "Game 19 — 1st Half", t2: "Game 20 — 1st Half", game: true },
+      { time: "18:15–18:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "18:25–18:40", t1: "Game 19 — 2nd Half", t2: "Game 20 — 2nd Half", game: true },
+      { time: "18:40–18:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "18:45–18:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "18:50–18:55", t1: "Warm up", t2: "Warm up" },
+      { time: "18:55–19:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "19:00–19:15", t1: "Game 21 — 1st Half", t2: "Game 22 — 1st Half", game: true },
+      { time: "19:15–19:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "19:25–19:40", t1: "Game 21 — 2nd Half", t2: "Game 22 — 2nd Half", game: true },
+      { time: "19:40–19:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "19:45–19:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "19:50–19:55", t1: "Warm up", t2: "Warm up" },
+      { time: "19:55–20:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "20:00–20:15", t1: "Game 23 — 1st Half", t2: "Game 24 — 1st Half", game: true },
+      { time: "20:15–20:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "20:25–20:40", t1: "Game 23 — 2nd Half", t2: "Game 24 — 2nd Half", game: true },
+    ]
+  },
+  {
+    day: "FRI", label: "Friday", tracks: 2,
+    slots: [
+      { time: "8:40–8:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "8:45–8:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "8:50–8:55", t1: "Warm up", t2: "Warm up" },
+      { time: "8:55–9:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "9:00–9:15", t1: "Game 25 — 1st Half", t2: "Game 26 — 1st Half", game: true },
+      { time: "9:15–9:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "9:25–9:40", t1: "Game 25 — 2nd Half", t2: "Game 26 — 2nd Half", game: true },
+      { time: "9:40–9:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "9:45–9:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "9:50–9:55", t1: "Warm up", t2: "Warm up" },
+      { time: "9:55–10:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "10:00–10:15", t1: "Game 27 — 1st Half", t2: "Game 28 — 1st Half", game: true },
+      { time: "10:15–10:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "10:25–10:40", t1: "Game 27 — 2nd Half", t2: "Game 28 — 2nd Half", game: true },
+      { time: "10:40–10:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "10:45–10:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "10:50–10:55", t1: "Warm up", t2: "Warm up" },
+      { time: "10:55–11:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "11:00–11:15", t1: "Game 29 — 1st Half", t2: "Game 30 — 1st Half", game: true },
+      { time: "11:15–11:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "11:25–11:40", t1: "Game 29 — 2nd Half", t2: "Game 30 — 2nd Half", game: true },
+      { time: "11:40–11:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "11:45–11:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "11:50–11:55", t1: "Warm up", t2: "Warm up" },
+      { time: "11:55–12:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "12:00–12:15", t1: "Game 31 — 1st Half", t2: "Game 32 — 1st Half", game: true },
+      { time: "12:15–12:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "12:25–12:40", t1: "Game 31 — 2nd Half", t2: "Game 32 — 2nd Half", game: true },
+      { time: "12:40–12:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "12:45–12:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "12:50–12:55", t1: "Warm up", t2: "Warm up" },
+      { time: "12:55–13:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "13:00–13:15", t1: "Game 33 — 1st Half", t2: "Game 34 — 1st Half", game: true },
+      { time: "13:15–13:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "13:25–13:40", t1: "Game 33 — 2nd Half", t2: "Game 34 — 2nd Half", game: true },
+      { time: "13:40–13:45", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "13:45–13:50", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "13:50–13:55", t1: "Warm up", t2: "Warm up" },
+      { time: "13:55–14:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "14:00–14:15", t1: "Game 35 — 1st Half", t2: "Game 36 — 1st Half", game: true },
+      { time: "14:15–14:25", t1: "Half Time / Switch Bench / Buffer", t2: "Half Time / Switch Bench / Buffer" },
+      { time: "14:25–14:40", t1: "Game 35 — 2nd Half", t2: "Game 36 — 2nd Half", game: true },
+      // BREAK
+      { time: "15:30–15:35", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "15:35–15:45", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "15:45–15:55", t1: "Warm up", t2: "Warm up" },
+      { time: "15:55–16:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "16:00–16:40", t1: "Game 37 — 1st Half", t2: "Game 38 — 1st Half", game: true },
+      { time: "16:40–16:50", t1: "Half Time / Switch Bench", t2: "Half Time / Switch Bench" },
+      { time: "16:50–17:30", t1: "Game 37 — 2nd Half", t2: "Game 38 — 2nd Half", game: true },
+      { time: "17:30–17:35", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "17:35–17:45", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "17:45–17:55", t1: "Warm up", t2: "Warm up" },
+      { time: "17:55–18:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "18:00–18:40", t1: "Game 39 — 1st Half", t2: "Game 40 — 1st Half", game: true },
+      { time: "18:40–18:50", t1: "Half Time / Switch Bench", t2: "Half Time / Switch Bench" },
+      { time: "18:50–19:30", t1: "Game 39 — 2nd Half", t2: "Game 40 — 2nd Half", game: true },
+      { time: "19:30–19:35", t1: "Captains Meeting", t2: "Captains Meeting" },
+      { time: "19:35–19:45", t1: "Warm up / Officials' Meeting", t2: "Warm up / Officials' Meeting" },
+      { time: "19:45–19:55", t1: "Warm up", t2: "Warm up" },
+      { time: "19:55–20:00", t1: "Buffer / Anthems", t2: "Buffer / Anthems" },
+      { time: "20:00–20:40", t1: "Game 41 — 1st Half", t2: "Game 42 — 1st Half", game: true },
+      { time: "20:40–20:50", t1: "Half Time / Switch Bench", t2: "Half Time / Switch Bench" },
+      { time: "20:50–21:30", t1: "Game 41 — 2nd Half", t2: "Game 42 — 2nd Half", game: true },
+    ]
+  },
+  {
+    day: "SAT", label: "Saturday", tracks: 1,
+    slots: [
+      { time: "8:30–8:35", t1: "Captains Meeting" },
+      { time: "8:35–8:45", t1: "Warm up / Officials' Meeting" },
+      { time: "8:45–8:55", t1: "Warm up" },
+      { time: "8:55–9:00", t1: "Buffer" },
+      { time: "9:00–9:40", t1: "Game 43 — 1st Half", game: true },
+      { time: "9:40–9:50", t1: "Half Time / Switch Bench" },
+      { time: "9:50–10:30", t1: "Game 43 — 2nd Half", game: true },
+      { time: "10:30��10:35", t1: "Captains Meeting" },
+      { time: "10:35–10:45", t1: "Warm up / Officials' Meeting" },
+      { time: "10:45–10:55", t1: "Warm up" },
+      { time: "10:55–11:00", t1: "Buffer" },
+      { time: "11:00–11:40", t1: "Game 44 — 1st Half", game: true },
+      { time: "11:40–11:50", t1: "Half Time / Switch Bench" },
+      { time: "11:50–12:30", t1: "Game 44 — 2nd Half", game: true },
+      { time: "12:30–12:35", t1: "Captains Meeting" },
+      { time: "12:35–12:45", t1: "Warm up / Officials' Meeting" },
+      { time: "12:45–12:55", t1: "Warm up" },
+      { time: "12:55–13:00", t1: "Buffer" },
+      { time: "13:00–13:40", t1: "Game 45 — 1st Half", game: true },
+      { time: "13:40–13:50", t1: "Half Time / Switch Bench" },
+      { time: "13:50–14:30", t1: "Game 45 — 2nd Half", game: true },
+      { time: "14:30–14:35", t1: "Captains Meeting" },
+      { time: "14:35–14:45", t1: "Warm up / Officials' Meeting" },
+      { time: "14:45–14:55", t1: "Warm up" },
+      { time: "14:55–15:00", t1: "Buffer" },
+      { time: "15:00–15:40", t1: "Game 46 — 1st Half", game: true },
+      { time: "15:40–15:50", t1: "Half Time / Switch Bench" },
+      { time: "15:50–16:30", t1: "Game 46 — 2nd Half", game: true },
+      { time: "16:30–16:35", t1: "Captains Meeting" },
+      { time: "16:35–16:45", t1: "Warm up / Officials' Meeting" },
+      { time: "16:45–16:55", t1: "Warm up" },
+      { time: "16:55–17:00", t1: "Buffer" },
+      { time: "17:00–17:40", t1: "Game 47 — 1st Half", game: true },
+      { time: "17:40–17:50", t1: "Half Time / Switch Bench" },
+      { time: "17:50–18:30", t1: "Game 47 — 2nd Half", game: true },
+      { time: "18:30–18:35", t1: "Captains Meeting" },
+      { time: "18:35–18:45", t1: "Warm up / Officials' Meeting" },
+      { time: "18:45–18:55", t1: "Warm up" },
+      { time: "18:55–19:00", t1: "Buffer" },
+      { time: "19:00–19:40", t1: "Game 48 — 1st Half", game: true },
+      { time: "19:40–19:50", t1: "Half Time / Switch Bench" },
+      { time: "19:50–20:30", t1: "Game 48 — 2nd Half", game: true },
+      { time: "20:30–20:35", t1: "Captains Meeting" },
+      { time: "20:35–20:45", t1: "Warm up / Officials' Meeting" },
+      { time: "20:45–20:55", t1: "Warm up" },
+      { time: "20:55–21:00", t1: "Buffer" },
+      { time: "21:00–21:40", t1: "Game 49 — 1st Half", game: true },
+      { time: "21:40–21:50", t1: "Half Time / Switch Bench" },
+      { time: "21:50–22:30", t1: "Game 49 — 2nd Half", game: true },
+    ]
+  },
+  {
+    day: "SUN", label: "Sunday", tracks: 1,
+    slots: [
+      { time: "8:30–8:35", t1: "Captains Meeting" },
+      { time: "8:35–8:45", t1: "Warm up / Officials' Meeting" },
+      { time: "8:45–8:55", t1: "Warm up" },
+      { time: "8:55–9:00", t1: "Buffer" },
+      { time: "9:00–9:40", t1: "Game 50 — 1st Half", game: true },
+      { time: "9:40–9:50", t1: "Half Time / Switch Bench" },
+      { time: "9:50–10:30", t1: "Game 50 — 2nd Half", game: true },
+      { time: "10:30–10:35", t1: "Captains Meeting" },
+      { time: "10:35–10:45", t1: "Warm up / Officials' Meeting" },
+      { time: "10:45–10:55", t1: "Warm up" },
+      { time: "10:55–11:00", t1: "Buffer" },
+      { time: "11:00–11:40", t1: "Game 51 — 1st Half", game: true },
+      { time: "11:40–11:50", t1: "Half Time / Switch Bench" },
+      { time: "11:50–12:30", t1: "Game 51 — 2nd Half", game: true },
+      { time: "12:30–12:35", t1: "Captains Meeting" },
+      { time: "12:35–12:45", t1: "Warm up / Officials' Meeting" },
+      { time: "12:45–12:55", t1: "Warm up" },
+      { time: "12:55–13:00", t1: "Buffer" },
+      { time: "13:00–13:40", t1: "Game 52 — 1st Half", game: true },
+      { time: "13:40–13:50", t1: "Half Time / Switch Bench" },
+      { time: "13:50–14:30", t1: "Game 52 — 2nd Half", game: true },
+      { time: "14:30–16:30", t1: "Parade of Nations", special: true },
+      { time: "16:30–16:35", t1: "Captains Meeting" },
+      { time: "16:35–16:45", t1: "Warm up / Officials' Meeting" },
+      { time: "16:45–16:55", t1: "Warm up" },
+      { time: "16:55–17:00", t1: "Buffer" },
+      { time: "17:00–17:40", t1: "Game 53 — 1st Half", game: true },
+      { time: "17:40–17:50", t1: "Half Time / Switch Bench" },
+      { time: "17:50–18:30", t1: "Game 53 — 2nd Half", game: true },
+      { time: "18:30–18:35", t1: "Captains Meeting" },
+      { time: "18:35–18:45", t1: "Warm up / Officials' Meeting" },
+      { time: "18:45–18:55", t1: "Warm up" },
+      { time: "18:55–19:00", t1: "Buffer" },
+      { time: "19:00–19:40", t1: "Game 54 — 1st Half", game: true },
+      { time: "19:40–19:50", t1: "Half Time / Switch Bench" },
+      { time: "19:50–20:30", t1: "Game 54 — 2nd Half", game: true },
+      { time: "20:30–21:30", t1: "Awards Ceremony", special: true },
+    ]
+  },
+];
 
 function getInitialScores() {
   const s = {};
@@ -450,6 +715,106 @@ function OverallRankings({ scores }) {
 }
 
 // Tab component
+// Event Schedule Component
+function EventSchedule() {
+  const [expandedDay, setExpandedDay] = useState("THU");
+  return (
+    <div>
+      {/* Rules */}
+      <div style={{
+        background: "#1e293b", borderRadius: 8, padding: 16, marginBottom: 20,
+        border: "1px solid #334155"
+      }}>
+        <h3 style={{ margin: "0 0 10px", fontSize: 14, fontWeight: 700, color: "#e2e8f0", fontFamily: "'JetBrains Mono', monospace" }}>
+          Game Rules
+        </h3>
+        <ul style={{ margin: 0, padding: "0 0 0 18px", fontSize: 12, color: "#94a3b8", lineHeight: 1.8 }}>
+          {GAME_RULES.map((r, i) => <li key={i}>{r}</li>)}
+        </ul>
+      </div>
+
+      {/* Day selector */}
+      <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+        {DAY_SCHEDULES.map(ds => (
+          <button
+            key={ds.day}
+            onClick={() => setExpandedDay(expandedDay === ds.day ? null : ds.day)}
+            style={{
+              flex: 1, padding: "8px 12px", border: expandedDay === ds.day ? "2px solid #3b82f6" : "1px solid #334155",
+              borderRadius: 6, background: expandedDay === ds.day ? "#1e3a5f" : "#1e293b",
+              color: expandedDay === ds.day ? "#93c5fd" : "#94a3b8", cursor: "pointer",
+              fontWeight: 700, fontSize: 12, fontFamily: "'JetBrains Mono', monospace",
+              transition: "all 0.15s ease"
+            }}
+          >
+            {ds.label}
+            <div style={{ fontSize: 10, fontWeight: 400, marginTop: 2, opacity: 0.7 }}>
+              {ds.tracks === 2 ? "2 Venues" : "Palais Only"}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Timeline */}
+      {DAY_SCHEDULES.filter(ds => ds.day === expandedDay).map(ds => (
+        <div key={ds.day} style={{
+          background: "#1e293b", borderRadius: 8, border: "1px solid #334155", overflow: "hidden"
+        }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: ds.tracks === 2 ? "110px 1fr 1fr" : "110px 1fr",
+            fontSize: 11, fontFamily: "'JetBrains Mono', monospace"
+          }}>
+            {/* Header row */}
+            <div style={{ padding: "8px 10px", background: "#0f172a", color: "#64748b", fontWeight: 700, borderBottom: "1px solid #334155" }}>
+              Time
+            </div>
+            <div style={{ padding: "8px 10px", background: "#0f172a", color: "#64748b", fontWeight: 700, borderBottom: "1px solid #334155" }}>
+              Palais des Sports
+            </div>
+            {ds.tracks === 2 && (
+              <div style={{ padding: "8px 10px", background: "#0f172a", color: "#64748b", fontWeight: 700, borderBottom: "1px solid #334155" }}>
+                CR / Argonaut
+              </div>
+            )}
+
+            {/* Rows */}
+            {ds.slots.map((slot, i) => {
+              const isGame = slot.game;
+              const isSpecial = slot.special;
+              const bg = isSpecial ? "#312e81" : isGame ? "#0c4a6e" : "transparent";
+              const color = isSpecial ? "#c4b5fd" : isGame ? "#7dd3fc" : "#94a3b8";
+              const borderColor = "#334155";
+              return [
+                <div key={`t${i}`} style={{
+                  padding: "4px 10px", borderBottom: `1px solid ${borderColor}`, color: "#64748b",
+                  background: bg, fontSize: 10, display: "flex", alignItems: "center"
+                }}>
+                  {slot.time}
+                </div>,
+                <div key={`e1${i}`} style={{
+                  padding: "4px 10px", borderBottom: `1px solid ${borderColor}`,
+                  color, background: bg, fontWeight: isGame || isSpecial ? 600 : 400
+                }}>
+                  {slot.t1}
+                </div>,
+                ds.tracks === 2 && (
+                  <div key={`e2${i}`} style={{
+                    padding: "4px 10px", borderBottom: `1px solid ${borderColor}`,
+                    color, background: bg, fontWeight: isGame || isSpecial ? 600 : 400
+                  }}>
+                    {slot.t2 || ""}
+                  </div>
+                ),
+              ];
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Tab({ label, active, onClick, icon }) {
   return (
     <button
@@ -647,6 +1012,11 @@ export default function TournamentTracker() {
             </p>
           </div>
           <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            <button onClick={() => handleTabChange("eventinfo")} style={{
+              background: tab === "eventinfo" ? "#475569" : "#334155", color: "#cbd5e1", border: "1px solid #475569",
+              borderRadius: 6, padding: "6px 10px", fontSize: 11, fontWeight: 500, cursor: "pointer",
+              transition: "all 0.15s ease", fontFamily: "'JetBrains Mono', monospace"
+            }}>Event Info</button>
             <div style={{
               background: "#1e40af", borderRadius: 20, padding: "6px 14px", fontSize: 12,
               fontWeight: 700, fontFamily: "'JetBrains Mono', monospace"
@@ -931,6 +1301,17 @@ export default function TournamentTracker() {
                 );
               })()}
             </div>
+          </div>
+        )}
+
+        {/* EVENT INFO TAB */}
+        {tab === "eventinfo" && (
+          <div>
+            <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1e293b", marginBottom: 4, fontFamily: "'JetBrains Mono', monospace" }}>
+              Event Info
+            </h3>
+            <p style={{ fontSize: 12, color: "#64748b", marginBottom: 16 }}>Full day-by-day event timelines, game rules, and venue schedules</p>
+            <EventSchedule />
           </div>
         )}
       </div>
