@@ -541,8 +541,8 @@ function GameRow({ game, score, onScoreChange, onScoreBlur }) {
       borderRadius: 6, borderLeft: played ? "3px solid #22c55e" : "3px solid transparent"
     }}>
       <span style={{ fontSize: 10, color: "#94a3b8", fontWeight: 600 }}>G{game.id}</span>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: 6 }}>
-        <span style={{ fontSize: 12, color: homeWin ? "#16a34a" : "#475569", fontWeight: homeWin ? 700 : 400 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2, minWidth: 0 }}>
+        <span style={{ fontSize: 11, color: homeWin ? "#16a34a" : "#475569", fontWeight: homeWin ? 700 : 400, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "100%" }}>
           {TEAMS[game.home]}
         </span>
         <TeamBadge code={game.home} size="sm" />
@@ -550,11 +550,11 @@ function GameRow({ game, score, onScoreChange, onScoreBlur }) {
       <ScoreInput value={score.home} onChange={v => onScoreChange(game.id, "home", v)} onBlur={() => onScoreBlur(game.id)} />
       <span style={{ textAlign: "center", color: "#94a3b8", fontWeight: 700, fontSize: 11 }}>vs</span>
       <ScoreInput value={score.away} onChange={v => onScoreChange(game.id, "away", v)} onBlur={() => onScoreBlur(game.id)} />
-      <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-        <TeamBadge code={game.away} size="sm" />
-        <span style={{ fontSize: 12, color: awayWin ? "#16a34a" : "#475569", fontWeight: awayWin ? 700 : 400 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2, minWidth: 0 }}>
+        <span style={{ fontSize: 11, color: awayWin ? "#16a34a" : "#475569", fontWeight: awayWin ? 700 : 400, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", maxWidth: "100%" }}>
           {TEAMS[game.away]}
         </span>
+        <TeamBadge code={game.away} size="sm" />
       </div>
     </div>
   );
@@ -1002,7 +1002,7 @@ export default function TournamentTracker() {
         color: "#fff", padding: "20px 24px", position: "sticky", top: 0, zIndex: 100,
         boxShadow: "0 4px 20px rgba(0,0,0,0.2)"
       }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: 10 }}>
           <div>
             <h1 style={{ margin: 0, fontSize: 22, fontWeight: 700, letterSpacing: -0.5, fontFamily: "'JetBrains Mono', monospace" }}>
               🏆 2026 TOURNAMENT TRACKER
@@ -1011,7 +1011,7 @@ export default function TournamentTracker() {
               24 Teams · 54 Games · 4 Days — {gamesPlayed}/54 completed
             </p>
           </div>
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
             <button onClick={() => handleTabChange("eventinfo")} style={{
               background: tab === "eventinfo" ? "#475569" : "#334155", color: "#cbd5e1", border: "1px solid #475569",
               borderRadius: 6, padding: "6px 10px", fontSize: 11, fontWeight: 500, cursor: "pointer",
